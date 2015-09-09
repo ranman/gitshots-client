@@ -132,8 +132,8 @@ def where():
     if LOCATION_CMD:
         try:
             location = run_command(LOCATION_CMD).split('_')
-            longitude = location[0]
-            latitude = location[1]
+            longitude = float(location[0])
+            latitude = float(location[1])
             where = {
                 'type': 'Point',
                 'coordinates': [longitude, latitude],
@@ -151,7 +151,7 @@ def where():
                 l = r.get('location')
                 where = {
                     'type': 'Point',
-                    'coordinates': [l['longitude'], l['latitude']],
+                    'coordinates': [float(l['longitude']), float(l['latitude'])],
                     'properties': {'err': '0'}
                 }
                 del l['latitude'], l['longitude']
