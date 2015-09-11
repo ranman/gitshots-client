@@ -18,13 +18,9 @@ pip install requests
 ```bash
 brew install imagesnap
 ```
-* Optional: CoreLocationCLI to fetch your location from CoreLocation 
+* Optional: CoreLocationCLI to fetch your location from CoreLocation.
 ```bash
-cd /tmp
-git clone git@github.com:fulldecent/corelocationcli.git
-cd corelocationcli
-xcodebuild
-mv build/Release/CoreLocationCLI /usr/bin
+brew install corelocationcli
 ```
 * Required: Install post-commit.py 
 ```bash
@@ -35,9 +31,14 @@ chmod +x install.sh
 ```
 
 ### Optional Configurations
+
 Add the following line to your `.bash_profile` or `.bashrc`. If you don't add this line with your server URL, your gitshots will be posted to [ranman's gitshot server](http://gitshots.ranman.org).
 
     export GITSHOTS_SERVER_URL=<your gitshots server url>
+
+If you'd rather not post to Gitshots in general, just set the GITSHOTS_SERVER_URL to `False`
+
+    export GITSHOTS_SERVER_URL=False
 
 --------------------------
 

@@ -16,9 +16,7 @@ EOF
 chmod +x ~/.git_template/hooks/post-commit
 
 echo "Installing CoreLocationCLI dependency"
-git clone git@github.com:fulldecent/corelocationcli.git /tmp/corelocationcli
-xcodebuild -project /tmp/corelocationcli/CoreLocationCLI.xcodeproj
-mv /tmp/corelocationcli/build/Release/CoreLocationCLI /usr/bin
+brew install corelocationcli
 echo "Installing imagesnap dependency"
 brew install imagesnap
 echo "Installing requests dependency, if this fails fix your python or use sudo"
