@@ -12,6 +12,7 @@ class Gitshots < Formula
 
   def install
     prefix.install "post-commit.py"
+    system "./install.sh"
   end
 
   test do

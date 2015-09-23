@@ -1,25 +1,44 @@
-#!/bin/sh
-bin=~/bin
-hooks=~/.git_template/hooks
+#!/bin/bash
 
-echo "Creating git_template dir"
-mkdir -p ~/.git_template/hooks
-git config --global init.templatedir '~/.git_template/'
-echo "Putting post-commit.py in bin"
-mkdir -p ~/bin
-curl https://raw.githubusercontent.com/ranman/gitshots-client/master/post-commit.py > ~/bin/post-commit.py
-echo "Creating post-commit hook"
-cat << EOF > ~/.git_template/hooks/post-commit
+###############################################################################
+# Instalation Script for Gitshots
+# Repository: https://github.com/ranman/gitshots-client
+# gitshots.com - Take a picture and collect some stats every time you commit!
+###############################################################################
+
+POST_COMMIT_FILE=~/bin/post-commit.py
+GIT_TEMPLATE_DIR=~/.git_template
+GIT_TEMPLATE_HOOKS_DIR=$GIT_TEMPLATE_DIR/hooks
+
+printf "\nPutting post-commit.py in bin.\n"
+if [[ -f $POST_COMMIT_FILE ]]; then
+   rm ~/bin/post-commit.py
+else
+	mkdir -p ~/bin
+fi
+
+if [[ $1 && -f $1 ]]; then
+	ln -s $1 $POST_COMMIT_FILE
+else
+	curl https://raw.githubusercontent.com/ranman/gitshots-client/master/post-commit.py > $POST_COMMIT_FILE
+fi
+
+printf "\nCreating git_template dir.\n"
+mkdir -p $GIT_TEMPLATE_HOOKS_DIR
+git config --global init.templatedir '$GIT_TEMPLATE_DIR'
+
+printf "\nCreating post-commit hook.\n"
+cat << EOF > $GIT_TEMPLATE_HOOKS_DIR/post-commit
 #!/bin/sh
-/usr/bin/python2.7 ~/bin/post-commit.py
+/usr/bin/python2.7 $POST_COMMIT_FILE
 EOF
-chmod +x ~/.git_template/hooks/post-commit
+chmod +x $GIT_TEMPLATE_HOOKS_DIR/post-commit
 
-echo "Installing CoreLocationCLI dependency"
+printf "\nValidating CoreLocationCLI dependency\n"
 brew install corelocationcli
-echo "Installing imagesnap dependency"
+printf "\nValidating imagesnap dependency\n"
 brew install imagesnap
-echo "Installing requests dependency, if this fails fix your python or use sudo"
+printf "\nValidating requests dependency, if this fails fix your python or use sudo\n"
 pip install requests
 
-echo "\n\nNow just run git init in any repo you want to use the commit hook in!"
+printf "\nNow just run git init in any repo you want to use the commit hook in!\n"
