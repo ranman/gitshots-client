@@ -29,7 +29,7 @@ fi
 
 printf "\nCreating git_template dir.\n"
 mkdir -p $GIT_TEMPLATE_HOOKS_DIR
-git config --global init.templatedir '$GIT_TEMPLATE_DIR'
+git config --global init.templatedir $GIT_TEMPLATE_DIR
 
 printf "\nCreating post-commit hook.\n"
 cat << EOF > $GIT_TEMPLATE_HOOKS_DIR/post-commit
