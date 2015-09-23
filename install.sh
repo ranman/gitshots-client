@@ -6,9 +6,10 @@
 # gitshots.com - Take a picture and collect some stats every time you commit!
 ###############################################################################
 
-POST_COMMIT_FILE=${HOME}/bin/post-commit.py
-GIT_TEMPLATE_DIR=${HOME}/.git_template
-GIT_TEMPLATE_HOOKS_DIR=$GIT_TEMPLATE_DIR/hooks
+USERHOME=$(dscl . -read /Users/`whoami` NFSHomeDirectory | awk -F": " '{print $2}')
+POST_COMMIT_FILE=${USERHOME}/bin/post-commit.py
+GIT_TEMPLATE_DIR=${USERHOME}/.git_template
+GIT_TEMPLATE_HOOKS_DIR=${GIT_TEMPLATE_DIR}/hooks
 
 printf "\nPutting post-commit.py in bin.\n"
 if [[ -f $POST_COMMIT_FILE ]]; then
