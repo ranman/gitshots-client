@@ -9,7 +9,12 @@ Everything will be stored locally. You can upload your gitshots to a [remote ser
 
 --------------------------
 
-### Installation
+### Installation using install.sh
+```sh 
+curl -s https://raw.githubusercontent.com/ranman/gitshots-client/master/install.sh | sh
+```
+
+### Manual Installation
 * Required: python `requests` library
 ```bash
 pip install requests
