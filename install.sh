@@ -34,11 +34,14 @@ cat << EOF > $GIT_TEMPLATE_HOOKS_DIR/post-commit
 EOF
 chmod +x $GIT_TEMPLATE_HOOKS_DIR/post-commit
 
-printf "\nValidating CoreLocationCLI dependency\n"
-brew install corelocationcli
-printf "\nValidating imagesnap dependency\n"
-brew install imagesnap
-printf "\nValidating requests dependency, if this fails fix your python or use sudo\n"
-pip install requests
+if [[ !($2 && $2 == "--no-dependencies") ]]; then
+	printf "Installing CoreLocationCLI dependency\n"
+	brew install corelocationcli
+	printf "Installing imagesnap dependency\n"
+	brew install imagesnap
+	printf "Installing requests dependency, if this fails fix your python or use sudo\n"
+	pip install requests
+fi
 
-printf "\nNow just run git init in any repo you want to use the commit hook in!\n"
+printf "\nNow just run git init in any repo you want to use the commit hook in!"
+printf "\ngitshots.com - Take a picture and collect some stats every time you commit!\n"
