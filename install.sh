@@ -6,20 +6,23 @@
 # gitshots.com - Take a picture and collect some stats every time you commit!
 ###############################################################################
 
-POST_COMMIT_FILE=~/bin/post-commit.py
-GIT_TEMPLATE_DIR=~/.git_template
+POST_COMMIT_FILE=${HOME}/bin/post-commit.py
+GIT_TEMPLATE_DIR=${HOME}/.git_template
 GIT_TEMPLATE_HOOKS_DIR=$GIT_TEMPLATE_DIR/hooks
 
 printf "\nPutting post-commit.py in bin.\n"
 if [[ -f $POST_COMMIT_FILE ]]; then
-   rm ~/bin/post-commit.py
+   printf "\nRemoving old file: $POST_COMMIT_FILE\n"
+   rm $POST_COMMIT_FILE
 else
 	mkdir -p ~/bin
 fi
 
 if [[ $1 && -f $1 ]]; then
+   	printf "\nSymbolic link from: $1 to $POST_COMMIT_FILE\n"
 	ln -s $1 $POST_COMMIT_FILE
 else
+	printf "\nDownload from github master branch: $POST_COMMIT_FILE\n"
 	curl https://raw.githubusercontent.com/ranman/gitshots-client/master/post-commit.py > $POST_COMMIT_FILE
 fi
 
